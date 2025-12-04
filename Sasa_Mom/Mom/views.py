@@ -13,22 +13,19 @@ def register_mother(request):
             mother = form.save()
             # Optionally queue a welcome message
             MessageLog.objects.create(mother=mother, phone=mother.phone, text=f"Welcome to {mother.hospital} — we will send reminders to this number.", status='queued')
-            return redirect(reverse('core:register_success'))
+            return redirect(('motherPage'))
     else:
         form = MotherRegistrationForm()
-    return render(request, 'register.html', {'form': form})
-
-def register_success(request):
-    return render(request, 'register_success.html')
+    return render(request, 'Mom/register.html', {'form': form})
 
 @login_required
-def mother_dashboard(request, mother_id):
+def motherPage(request,pk):
     # checks if mom exists
-    mother = get_object_or_404(Mother, pk=mother_id)
+    mother = Mother.objects.get(id=pk)
     # this will bring up the upcoming child vaccinations only if mom exits
     vaccinations = ChildVaccination.objects.filter(child__mother=mother, completed=False).order_by('scheduled_date')[:1]
     context = {
         'mother': mother,
         'upcoming_vaccinations': vaccinations,
     }
-    return render(request, 'dashboard.html', context)
+    return render(request, 'Mom/mother.html', context)
