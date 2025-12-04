@@ -6,14 +6,14 @@ from .models import Mother, ChildVaccination, MessageLog
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-def register_mother(request):
+def register_mother(request,pk):
     if request.method == 'POST':
         form = MotherRegistrationForm(request.POST)
         if form.is_valid():
             mother = form.save()
             # Optionally queue a welcome message
             MessageLog.objects.create(mother=mother, phone=mother.phone, text=f"Welcome to {mother.hospital} — we will send reminders to this number.", status='queued')
-            return redirect(('motherPage'))
+            return redirect('motherPage',pk=mother.id)
     else:
         form = MotherRegistrationForm()
     return render(request, 'Mom/register.html', {'form': form})
