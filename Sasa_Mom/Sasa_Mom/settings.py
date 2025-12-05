@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'Sasa_Mom.urls'
 
 TEMPLATES = [
@@ -80,6 +81,9 @@ DATABASES = {
     }
 }
 
+LOGIN_URL = 'staff_login'
+LOGIN_REDIRECT_URL = 'staff_dashboard'
+LOGOUT_REDIRECT_URL = 'staff_login'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
