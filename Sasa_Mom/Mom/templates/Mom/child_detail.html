@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block content %}
+<h2>{{ child.name }} — Details</h2>
+<p><strong>Gender:</strong> {{ child.gender }}</p>
+<p><strong>Date of Birth:</strong> {{ child.dob }}</p>
+
+<h3>Upcoming Vaccinations</h3>
+<ul class="list-group">
+  {% for v in upcoming_vaccinations %}
+    <li class="list-group-item">
+      {{ v.vaccination.name }} — Scheduled on {{ v.scheduled_date }}
+      {% if v.completed %} (Completed) {% endif %}
+    </li>
+  {% empty %}
+    <li class="list-group-item">No upcoming vaccinations.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'schedule_child_vaccination' child.id %}" class="btn btn-success mt-2">Schedule New Vaccination</a>
+{% endblock %}

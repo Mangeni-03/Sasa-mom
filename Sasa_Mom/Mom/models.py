@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
   
 class Mother (models.Model):
     name=models.CharField(max_length=255)
-    phone=models.CharField(max_length=20,help_text="Enter phone number format 07..or 01...or +254....")
+    phone=models.CharField(max_length=20,help_text="Format 07..or 01...or +254....")
     language=models.CharField(max_length=50,default='en')
     consent=models.BooleanField(db_default=False)
     hospital=models.CharField(max_length=255)
